@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Github - Build and ship software</title>
+</head>
+<body>
+<style>
+    body {
+        background-color: #24292e;;
+        color: white;
+    }
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+    } 
+    #frist-header div {
+        margin-left: 20px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    #second-header {
+        display: flex;
+        align-items: center;
+        color:white;
+    }
+    #search {
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        margin-right: 10px;
+    }
+    header img {
+        height: 40px;
+    }
+    button {
+        padding: 10px 15px;
+        border-radius: 5px;
+        background: none;
+        border: none;
+    }
+    button:hover {
+        cursor: pointer;
+    }
+    #main {
+        display: flex;
+        justify-content: space-between;
+        padding: 50px;
+    }
+    #main-left {
+        max-width: 500px;
+    }
+    #main-left h1 {
+        font-size: 48px;
+        margin-bottom: 20px;
+    }
+    #main-left p {
+        font-size: 18px;
+        color:#b0b0b0;
+    }
+    #main-right {
+        max-width: 400px;
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+    }
+    .input-information {
+        margin-bottom: 15px;
+    }
+    .input-information label {
+        display: block;
+        margin-bottom: 5px;
+        color: black;
+    }
+    input-information input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+    }
+    #notice {
+        margin-top: 20px;
+        font-size: 12px;
+        color: #b0b0b0;
+    }
+    footer {
+        display: flex;
+        justify-content: right;;
+    } 
+</style>   
+    <header>
+        <div id="frist-header">
+            <img src="./github.png">
+            <div>Why GitHub?</div>
+            <div>Team</div>
+            <div>Enterprise</div>
+            <div>Explore</div>
+            <div>Marketplace</div>
+            <div>Pricing</div>
+        </div>
+        <div id="second-header">
+            <input id="search" type="text" placeholder="Search GitHub">
+            <button id="sign-in" type="button">Sign in</button>
+            <button id="sign-up" type="button">Sign up</button>
+        </div>
+    </header>
+ 
+    <div id="main">
+        <div id="main-left">
+            <h1>Built for <br> developers</h1>
+            <p>
+                GitHub is a development platform inspired by the<br/> 
+                way you work. From <span style="color: white; font-weight: bold;">open source</span> to <span style="color: white; font-weight: bold;">business</span>, you<br/>
+                can host and review code, manage projects, and<br/>
+                build software alongside 50 million developers
+            </p>
+        </div>
+        <div id="main-right">
+            <form action="">
+                <div class="input-information">
+                    <label for="userName">Username</label>
+                    <input type="text" placeholder="" id="userName">
+                </div>
+                <div class="input-information">
+                    <label for="email">Email</label>
+                    <input type="email" placeholder="" id="email">
+                </div>
+                <div class="input-information">
+                    <label for="passWord">Password</label>
+                    <input type="password" placeholder="" id="passWord">
+                </div>
+                <p>
+                    Make sure it's at least 15 characters OR at least 8 characters including a<br/> 
+                    number and a lowercase letter. <a href="#">Learn more.</a>
+                </p>
+                <button>Sign up for Github</button>
+                <div id="notice">
+                    <p>
+                        By clicking "sign up for Github", you agree to our <a href="#">Terms of Service</a> and<br/>
+                        <a href="#">Privacy Statement</a>. We'll occasionally send you account related emails.
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="footer">
+        <img src="./footer.webp">
+    </div>   
+</body>
+</html>
