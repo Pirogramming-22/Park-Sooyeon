@@ -28,8 +28,8 @@
             --color_border_in_divider_rgb: 235, 235, 235;
             --color_border_in_exception: #ebebeb;
             --color_border_in_exception_rgb: 235, 235, 235;
-            --color_button_border: #dadcdf;
-            --color_button_border_rgb: 218, 220, 223;
+            --color_naverpay_border: #dadcdf;
+            --color_naverpay_border_rgb: 218, 220, 223;
             --color_dot_divider: #d3d5d7;
             --color_dot_divider_rgb: 211, 213, 215;
             --color_block_bg: #fff;
@@ -44,10 +44,10 @@
             --color_menu_widget_bg_rgb: 255, 255, 255;
             --color_setting_bg: #fff;
             --color_setting_bg_rgb: 255, 255, 255;
-            --color_button1_bg: #fff;
-            --color_button1_bg_rgb: 255, 255, 255;
-            --color_button2_bg: #fff;
-            --color_button2_bg_rgb: 255, 255, 255;
+            --color_naverpay1_bg: #fff;
+            --color_naverpay1_bg_rgb: 255, 255, 255;
+            --color_naverpay2_bg: #fff;
+            --color_naverpay2_bg_rgb: 255, 255, 255;
             --color_news: #3a67ea;
             --color_news_rgb: 58, 103, 234;
             --color_news_econ_stay: #909aab;
@@ -58,6 +58,9 @@
             --color_live_news_price_rgb: 244, 54, 30;
             --color_enter: #e538e2;
             --color_enter_rgb: 229, 56, 226;
+        }
+        * {
+            box-sizing: border-box;
         }
         html, body{
             margin: 0;
@@ -74,37 +77,66 @@
         #header{
             text-align: left;
             position: relative;
-        }
-        #header-hamburger{
+        } 
+        #header-hamburger, #header-naverpay, #header-navertalk, #header-notice, #header-shopping { 
             position: absolute;
-            top: 18px;
-            left: -10px;
+            top: 4px;
             padding: 8px;
-            display:inline-block;
+            display: inline-block;
             background: none;
             border: none;
             cursor: pointer;
         }
-        #header-hamburger:hover::before{
-            position:absolute;
-            content:'';
+        #header-hamburger:hover::before, #header-naverpay:hover::before, #header-navertalk:hover::before,#header-notice:hover::before,  #header-shopping:hover::before {
+            position: absolute;
+            content: '';
             z-index: 0;
             left: 1px;
-            top:1px;
-            width: 44px;
-            height: 44px;
+            top: 1px;
+            width: 48px;
+            height: 48px;
             background-color: var(--color_option_bg);
             border-radius: 50%;
         }
-        #header-hamburger > div {
+        #header-hamburger > div, #header-naverpay > div, #header-navertalk > div, #header-notice > div,  #header-shopping > div  {
             background-image: url(./sp_main.png);
-            z-index: 1;
+            width: 32px;
+            height: 32px;
             position: relative;
-            width: 26px;
-            height: 26px;
-            background-position: -311px -166px;
+            z-index: 1;
             background-repeat: no-repeat;
-            background-size: 452px 436px;
+            background-size: 463px 440px;
+        }
+        #header-hamburger {
+            left: -12px;
+        }
+        #header-hamburger > div {
+            background-position: -311px -166px;
+        }
+        #header-naverpay {
+            left: 41px;
+            padding: 8px;
+        }
+        #header-naverpay > div {
+            background-position: -254px -262px;
+        }
+        #header-navertalk {
+            right: 94px;
+        }
+        #header-navertalk > div {
+            background-position: -99px -318px
+        }
+        #header-notice {
+            right: 42px;
+        }
+        #header-notice > div {
+            background-position: -315px -233px;
+        }
+        #header-shopping{
+            right: -10px;
+        }
+        #header-shopping > div {
+            background-position: -32px -318px;
         }
 
         #main{
@@ -125,8 +157,34 @@
         <div id="wrap-center">
             <div id="header">
                 <button id="header-hamburger">
+                    <!--  ::before -->
                     <div></div>
                     <span class="blind">확장 영역</span>
+                    <!--  ::after -->
+                </button>
+                <button id="header-naverpay">
+                    <!--  ::before -->
+                    <div></div>
+                    <span class="blind">네이버 페이</span>
+                    <!--  ::after -->
+                </button>
+                <button id="header-navertalk">
+                    <!--  ::before -->
+                    <div></div>
+                    <span class="blind">네이버톡</span>
+                    <!--  ::after -->
+                </button>
+                <button id="header-notice">
+                    <!--  ::before -->
+                    <div></div>
+                    <span class="blind">알림</span>
+                    <!--  ::after -->
+                </button>
+                <button id="header-shopping">
+                    <!--  ::before -->
+                    <div></div>
+                    <span class="blind">장바구니</span>
+                    <!--  ::after -->
                 </button>
             </div>
             <div id="search"></div>
