@@ -78,7 +78,7 @@
         #header-hamburger{
             position: absolute;
             top: 18px;
-            left: -8px;
+            left: -10px;
             padding: 8px;
             display:inline-block;
             background: none;
@@ -88,17 +88,20 @@
         #header-hamburger:hover::before{
             position:absolute;
             content:'';
-            left: 2px;
-            top:2px;
-            width: 48px;
-            height: 48px;
+            z-index: 0;
+            left: 1px;
+            top:1px;
+            width: 44px;
+            height: 44px;
             background-color: var(--color_option_bg);
             border-radius: 50%;
         }
         #header-hamburger > div {
             background-image: url(./sp_main.png);
-            width: 32px;
-            height: 32px;
+            z-index: 1;
+            position: relative;
+            width: 26px;
+            height: 26px;
             background-position: -311px -166px;
             background-repeat: no-repeat;
             background-size: 452px 436px;
@@ -106,6 +109,14 @@
 
         #main{
             height: 2000px;
+        }
+        .blind{
+            position: absolute;
+            clip: rect(0 0 0 0);
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            overflow: hidden;
         }
     </style>
 </head>
@@ -115,6 +126,7 @@
             <div id="header">
                 <button id="header-hamburger">
                     <div></div>
+                    <span class="blind">확장 영역</span>
                 </button>
             </div>
             <div id="search"></div>
