@@ -801,8 +801,36 @@
                     grid-template-columns: 1fr 1fr 1fr 1fr 250px;
                     column-gap: 20px;
                 }
+                #main-shopping-grid .item {
+                    line-height: 20px;
+                    letter-spacing: -.8px;
+                    font-size: 1.4rem;
+                }
+                #main-shopping-grid .item > .image {
+                    width: 115px;
+                    height: 115px;
+                    border-radius: 4px;
+                    background-color: gray;
+                    margin-bottom: 10px;
+                }
+                #main-shopping-grid .item > .text {
+                    text-align: left;
+                }
                 .item:nth-child(1), .item:nth-child(2), .item:nth-child(3), .item:nth-child(4) {
                     grid-row: 1 / span 2;
+                }
+                .item:nth-child(5), .item:nth-child(6), .item:nth-child(11) > div:first-child {
+                    padding: 10px 12px 5px;
+                    border-radius: 4px;
+                    border: 1px solid rgba(0,0,0,.05);
+                    background: rgba(245,248,251,.6);
+                }
+                .item:nth-child(6) {
+                    margin: 11px 0;
+                }
+                .item:nth-child(11) > div:first-child {
+                    height: 135px;
+                    margin-bottom: 10px;
                 }
                 #main-login {
                     height: 164px;
@@ -881,7 +909,7 @@
                     height: 236px;
                 }
             </style>
-            <main id="main">
+             <main id="main">
                 <div id="main-left">
                     <aside id="main-left-ad"></aside>
                     <section id="main-newstand" class="left-section">
@@ -899,82 +927,118 @@
                                     <div id="main-newstand-animation">
                                         <a href="#">연합뉴스</a>
                                         <a href="#">제로초 지금 배고파제로초 지금 배고파제로초 지금 배고파제로초 지금 배고파</a>
-                                    </div> 
+                                    </div>
                                 </div>
                                 <div class="right">
                                     <a href="#">뉴스스탠드</a>
                                     <a href="#" class="bold">뉴스홈</a>
-                                </div>  
+                                </div>
                             </div>
-                        </div>
-                        <div id="main-newstand-grid">
-                            <div>언론사</div>
-                            <div>언론사</div>
-                            <div>언론사</div>
-                            <div>언론사</div>
-                            <div>언론사</div>
-                            <div>언론사</div>
-                            <div>언론사</div>
-                            <div>언론사</div>
-                            <div>언론사</div>
-                            <div>언론사</div>
-                            <div>언론사</div>
-                            <div>언론사</div>
-                            <div>언론사</div>
-                            <div>언론사</div>
-                            <div>언론사</div>
-                            <div>언론사</div>
-                            <div>언론사</div>
-                            <div>언론사</div>
-                            <div>언론사</div>
-                            <div>언론사</div>
-                            <div>언론사</div>
-                            <div>언론사</div>
-                            <div>언론사</div>
-                            <div>언론사</div>
+                            <div id="main-newstand-grid">
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                                <div>언론사</div>
+                            </div>
                         </div>
                         <footer>
                             <button class="prev"><span class="blind">이전 페이지</span></button>
                             <div class="text"><span class="news">언론사</span>&nbsp;더보기&nbsp;1<span class="total">/4</div>
-                            <button class="next"><span class="blind">다음 페이지</span></button>
-                            <button class="list"><span class="blind">목록보기</span></button>
-                            <button class="grid"><span class="blind">격자보기</span></button>
-                        </footer>
-                    </section>
-                    <section id="main-shopping" class="left-section">
-                        <div  id="main-shopping-top">
-                            <header>
+                                <button class="next"><span class="blind">다음 페이지</span></button>
+                                <button class="list"><span class="blind">목록보기</span></button>
+                                <button class="grid"><span class="blind">격자보기</span></button>
+                            </footer>
+                        </section>
+                        <section id="main-shopping" class="left-section">
+                            <div  id="main-shopping-top">
+                                <header>
                                 <a href="#" class="bold">쇼핑</a>
                                 <a href="#" class="slash">맨즈</a>
                                 <a href="#" class="slash">원쁠딜</a>
                                 <a href="#" class="slash">쇼핑라이브</a>
                             </header>
-                        </div>
-                        <div id="main-shopping-gray">
-                            <div class="left">
-                                <a href="#">오늘의 혜택</a>
-                                <div id="main-shopping-animation">
-                                    <a href="#">제로초 지금 배고파제로초 지금 배고파제로초 지금 배고파제로초 지금 배고파</a>
+                            <div id="main-shopping-gray">
+                                <div class="left">
+                                    <a href="#">오늘의 혜택</a>
+                                    <div id="main-shopping-animation">
+                                        <a href="#">제로초 지금 배고파제로초 지금 배고파제로초 지금 배고파제로초 지금 배고파</a>
+                                    </div>
+                                </div>
+                                <div class="right">
+                                    <span>1</span>
+                                    <span>/18</span>
+                                    <button class="prev"><div class="blind">이전페이지</div></button>
+                                    <button class="next"><div class="blind">다음페이지</div></button>
                                 </div>
                             </div>
-                            <div class="right">
-                                <span>1</span>
-                                <span>/18</span>
-                                <button class="prev"><div class="blind">이전페이지</div></button>
-                                <button class="next"><div class="blind">다음페이지</div></button>
+                            <div id="main-shopping-grid">
+                                <div class="item">
+                                    <div class="image"></div>
+                                    <div class="text">독보적인 퀄리티 우린품격을입어요</div>
+                                </div>
+                                <div class="item">
+                                    <div class="image"></div>
+                                    <div class="text">독보적인 퀄리티 우린품격을입어요</div>
+                                </div>
+                                <div class="item">
+                                    <div class="image"></div>
+                                    <div class="text">독보적인 퀄리티 우린품격을입어요</div>
+                                </div>
+                                <div class="item">
+                                    <div class="image"></div>
+                                    <div class="text">독보적인 퀄리티 우린품격을입어요</div>
+                                </div>
+                                <div class="item">5</div>
+                                <div class="item">6</div>
+                                <div class="item">
+                                    <div class="image"></div>
+                                    <div class="text">독보적인 퀄리티 우린품격을입어요</div>
+                                </div>
+                                <div class="item">
+                                    <div class="image"></div>
+                                    <div class="text">독보적인 퀄리티 우린품격을입어요</div>
+                                </div>
+                                <div class="item">
+                                    <div class="image"></div>
+                                    <div class="text">독보적인 퀄리티 우린품격을입어요</div>
+                                </div>
+                                <div class="item">
+                                    <div class="image"></div>
+                                    <div class="text">독보적인 퀄리티 우린품격을입어요</div>
+                                </div>
+                                <div class="item">
+                                    <div></div>
+                                    <div>아웃렛 쇼핑 득템찬스! 시즌오프SALE</div>
+                                </div>
                             </div>
                         </div>
-                        <div id="main-shopping-grid">
-
-                            <footer>
-                                <button class="prev"><span class="blind">이전 페이지</span></button>
-                                <div class="text"><span class="hot">쇼핑핫아이템</span>&nbsp;더보기&nbsp;1<span class="total">/18</div>
-                                <button class="next"><span class="blind">다음 페이지</span></button>
-                            </footer>
-                        </div>
+                        <footer>
+                            <button class="prev"><span class="blind">이전 페이지</span></button>
+                            <div class="text"><span class="hot">쇼핑핫아이템</span>&nbsp;더보기&nbsp;1<span class="total">/18</div>
+                            <button class="next"><span class="blind">다음 페이지</span></button>
+                        </footer>
                     </section>
                 </div>
-                
                 <div id="main-right">
                     <section id="main-login">
                         <div>네이버를 더 안전하고 편리하게 이용하세요</div>
@@ -982,7 +1046,7 @@
                         <div>
                             <a href="#">아이디 찾기</a>
                             <a href="#">비밀번호 찾기</a>
-                            <a href="#">회원가입</a>
+                            <a href="#">회원가입 찾기</a>
                         </div>
                     </section>
                     <aside id="main-right-ad"></aside>
@@ -997,8 +1061,6 @@
                 </div>
             </main>
         </div>
-
     </div>
-
 </body>
 </html>
