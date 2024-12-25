@@ -333,7 +333,6 @@
                 }
                 #nav > ul {
                     display: flex;
-                    list-style-type: none;
                     justify-content: center;
                     font-size: 1.4rem;
                     line-height: 20px;
@@ -343,10 +342,8 @@
                     text-align: center;
                 }
                 #nav a div {
-                    margin: 0 auto;
                     position: relative;
                     text-align: center;
-                    display: inline-flex;
                 }
                 #nav a div::after {
                     position: relative;
@@ -382,6 +379,9 @@
                     width: 50px;
                     height: 50px;
                 }
+                #nav li:nth-of-type(1) {
+                    margin-right: 1;
+                }
                 #nav li:nth-of-type(1) a div::after {
                     background-position: -205px -219px;
                 }
@@ -405,9 +405,6 @@
                 }
                 #nav li:nth-of-type(8) a div::after {
                     background-position: -270px 0px;
-                    width: 48px;
-                    height: 48px;
-                    top: -2px;
                 }
                 #nav li:nth-of-type(9) a div::after {
                     background-position: -164px -260px;
@@ -419,9 +416,6 @@
                     display: inline-block;
                     margin-top: 7px;
                 } 
-                #nav li:nth-of-type(8) a span {
-                    margin-top: 3px;
-                }
             </style>
             <div id="nav">
                 <ul>
