@@ -508,6 +508,39 @@
                 }
                 #main-newstand {
                     height: 426px;
+                    display: flex;
+                    flex-flow: column;
+                }
+                #main-newstand-top {
+                    flex :1;
+                    padding: 18px 20px;
+                }
+                #main-newstand header {
+                    color: rgba(8,8,8,.5);
+                    font-size: 1.6rem;
+                    display: flex;
+                    justify-content: flex-start;
+                }
+                #main-newstand header .bold {
+                    font-weight: bold;
+                    color: black;
+                }
+                #main-newstand-gray {
+                    display: flex;
+                    justify-content: flex-start;  
+                }
+                #main-newstand a {
+                    text-decoration: none;
+                }
+                #main-newstand a:visited {
+                    color: inherit;
+                }
+                #main-newstand a:hover {
+                    text-decoration: underline;
+                }
+                #main-newstand footer {
+
+                    padding: 10px 0 11px;
                 }
                 #main-shopping {
                     height: 164px;
@@ -592,7 +625,49 @@
             <main id="main">
                 <div id="main-left">
                     <aside id="main-left-ad"></aside>
-                    <section id="main-newstand"></section>
+                    <section id="main-newstand">
+                        <div  id="main-newstand-top">
+                            <header>
+                                <a href="#" class="bold">뉴스스탠드</a>
+                                <a href="#" class="dot">언론사편집</a>
+                                <a href="#" class="slash">엔터</a>
+                                <a href="#" class="slash">스포츠</a>
+                                <a href="#" class="slash">경제</a>
+                            </header>
+                            <div id="main-newstand-gray">
+                                <a href="#">전체언론사</a> 
+                                <a href="#">연합뉴스</a>
+                                <a href="#">제로초 지금 배고파제로초 지금 배고파제로초 지금 배고파제로초 지금 배고파</a>
+                            </div>
+                        </div>
+                        <div id="main-newstand-grid">
+                            <div>언론사</div>
+                            <div>언론사</div>
+                            <div>언론사</div>
+                            <div>언론사</div>
+                            <div>언론사</div>
+                            <div>언론사</div>
+                            <div>언론사</div>
+                            <div>언론사</div>
+                            <div>언론사</div>
+                            <div>언론사</div>
+                            <div>언론사</div>
+                            <div>언론사</div>
+                            <div>언론사</div>
+                            <div>언론사</div>
+                            <div>언론사</div>
+                            <div>언론사</div>
+                            <div>언론사</div>
+                            <div>언론사</div>
+                            <div>언론사</div>
+                            <div>언론사</div>
+                            <div>언론사</div>
+                            <div>언론사</div>
+                            <div>언론사</div>
+                            <div>언론사</div>
+                        </div>
+                        <footer></footer>
+                    </section>
                     <section id="main-shopping"></section>
                 </div>
                 
