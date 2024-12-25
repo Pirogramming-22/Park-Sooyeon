@@ -730,9 +730,9 @@
                     border: none;
                     width: 36px;
                     height: 36px;
-                    border: 1px solid #dadcdf;
+                    border: 1px solid #dadcdfda;
                     border: 1px solid var(--color_button_border);
-                    background-color: #fff;
+                    background-color: #ffffffe9;
                     background-color: var(--color_button1_bg);
                     display: inline-block;
                     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .06);
@@ -794,6 +794,16 @@
                     margin-left: auto;
                     padding: 10px 0;
                 }
+                #main-shopping-grid {
+                    margin-top: 18px;
+                    display: grid;
+                    grid-template-rows: 90px 95px 170px;
+                    grid-template-columns: 1fr 1fr 1fr 1fr 250px;
+                    column-gap: 20px;
+                }
+                .item:nth-child(1), .item:nth-child(2), .item:nth-child(3), .item:nth-child(4) {
+                    grid-row: 1 / span 2;
+                }
                 #main-login {
                     height: 164px;
                     padding: 21px 20px 18px;
@@ -825,6 +835,7 @@
                     margin: 3px 8px 0 0;
                 }
                 #main-login > div:last-of-type {
+                    margin-top: 16px;
                     font-size: 1.3rem;
                     display: flex;
                     justify-content: center;
@@ -954,6 +965,7 @@
                             </div>
                         </div>
                         <div id="main-shopping-grid">
+
                             <footer>
                                 <button class="prev"><span class="blind">이전 페이지</span></button>
                                 <div class="text"><span class="hot">쇼핑핫아이템</span>&nbsp;더보기&nbsp;1<span class="total">/18</div>
