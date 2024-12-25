@@ -190,7 +190,7 @@
             <style>
                 #search > form { 
                     display:inline-flex;
-                    width: 708px;
+                    width: 706px;
                     height: 60px;
                     border: 1px solid #03c75a;
                     border-radius: 33px;
@@ -214,6 +214,20 @@
                     margin-right: 12px;
                     height: 100%;
                     padding-left: 10px;
+                    position: relative;
+                }
+                #search-svg::after {
+                    display: none;
+                }
+                #search > form:focus-within #search-svg::after {
+                    content: "";
+                    width: 1px;
+                    height: 20px;
+                    background-color: #e4e4e4;
+                    position: absolute;
+                    display: inline-block;
+                    right: 0;
+                    top: 20px;
                 }
                 #search-svg svg {
                     width: 24px;
