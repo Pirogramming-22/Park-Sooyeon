@@ -24,6 +24,7 @@ body > header {
     justify-content: space-between;
     color: white;
     font-size: 18px;
+    font-weight: bold;
     width: 550px;
     padding: 5px;
 }
@@ -194,4 +195,33 @@ footer .right-footer .right-item {
     padding: 16px;
     text-align: center;
     font-size: 12px;
+}
+@media (max-width: 850px) {
+    .member-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+}
+  
+@media (max-width: 800px) {
+    .nav > div {
+      opacity: 0;
+    }
+    .nav > img {
+      visibility: visible;
+    }
+}
+  
+@media (max-width: 750px) {
+    #right {
+      display: none;
+    }
+    .main-footer {
+      height: 130px;
+    }
+}
+  
+@media (max-width: 600px) {
+    .member-grid {
+      grid-template-columns: 1fr;
+    }
 }
