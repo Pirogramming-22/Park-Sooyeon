@@ -39,7 +39,7 @@
     transition: transform var(--animation-duration) ease;
     margin-right: var(--base-space);
   }
-  
+
   .btn:hover,.logo:hover {
     transform: scale(1.1);
   }
