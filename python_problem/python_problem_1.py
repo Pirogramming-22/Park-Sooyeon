@@ -17,6 +17,7 @@ while br_num < 31:
         br_num += 1
         print("playerA :",br_num)
         if br_num == 31:
+            print("playerB win!")
             exit()
 
     while 1:
@@ -34,4 +35,5 @@ while br_num < 31:
         br_num += 1
         print("playerB :",br_num)
         if br_num == 31:
+            print("playerA win!")
             exit()
