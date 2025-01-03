@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Github - Build and ship software</title>
+</head>
+<body>
+<style>
+    body {
+        background-color: #24292e;
+        color: white;
+    }
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+    }
+    #frist-header {
+    display: flex;
+    align-items: center;
+    }
+    #frist-header div {
+    margin-right: 15px;
+    cursor: pointer;
+    }
+
+    #frist-header img {
+        height: 40px;
+        margin-right: 20px;
+    }
+    #second-header {
+    display: flex;
+    align-items: center;
+    }
+
+    #search {
+        padding: 8px;
+        border-radius: 5px;
+        border: 1px solid gray;
+        margin-right: 10px;
+    }
+    button {
+        padding: 8px 12px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    #sign-in {
+        background-color: transparent;
+        color: white;
+        margin-right: 10px;
+    }
+    #sign-up {
+        background-color: transparent;
+        color: white;
+        border: 1px solid white;
+    }
+    #main {
+        display: flex;
+        justify-content: space-between;
+        padding: 50px;
+    }
+    #main-left {
+        max-width: 500px;
+        margin-left: 100px;
+        
+    }
+
+    #main-left h1 {
+        font-size: 48px;
+        margin-bottom: 20px;
+        line-height: 1.2;
+    }
+
+    #main-left p {
+        font-size: 18px;
+        color: #b0b0b0;
+        line-height: 1.6;
+    }
+
+    #main-right {
+        background-color: white;
+        color: black;
+        padding: 30px;
+        border-radius: 5px;
+        max-width: 400px;
+        width: 100%;
+    }
+
+    .input-information {
+        margin-bottom: 15px;
+    }
+
+    .input-information label {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 14px;
+    }
+
+    .input-information input {
+        width: 100%;
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+    }
+
+    #main-right button {
+        width: 100%;
+        padding: 10px;
+        background-color: #2ea44f;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+    #main-right button:hover {
+        background-color: #22863a;
+    }
+
+    #notice {
+        margin-top: 20px;
+        font-size: 12px;
+        color: #6a737d;
+        margin-top: 15px;
+        line-height: 1.4;
+    }
+
+    #footer {
+        margin-top: 50px;
+        text-align: right;
+    }
+
+    #footer img {
+        margin-right: 60px;
+    }
+
+
+</style>   
+    <header>
+        <div id="frist-header">
+            <img src="./github.png">
+            <div>Why GitHub?</div>
+            <div>Team</div>
+            <div>Enterprise</div>
+            <div>Explore</div>
+            <div>Marketplace</div>
+            <div>Pricing</div>
+        </div>
+        <div id="second-header">
+            <input id="search" type="text" placeholder="Search GitHub">
+            <button id="sign-in" type="button">Sign in</button>
+            <button id="sign-up" type="button">Sign up</button>
+        </div>
+    </header>
+ 
+    <div id="main">
+        <div id="main-left">
+            <h1>Built for <br> developers</h1>
+            <p>
+                GitHub is a development platform inspired by the<br/> 
+                way you work. From <span style="color: white; font-weight: bold;">open source</span> to <span style="color: white; font-weight: bold;">business</span>, you<br/>
+                can host and review code, manage projects, and<br/>
+                build software alongside 50 million developers
+            </p>
+        </div>
+        <div id="main-right">
+            <form action="">
+                <div class="input-information">
+                    <label for="userName">Username</label>
+                    <input type="text" placeholder="" id="userName">
+                </div>
+                <div class="input-information">
+                    <label for="email">Email</label>
+                    <input type="email" placeholder="" id="email">
+                </div>
+                <div class="input-information">
+                    <label for="passWord">Password</label>
+                    <input type="password" placeholder="" id="passWord">
+                </div>
+                <p>
+                    Make sure it's at least 15 characters OR at least 8 characters including a<br/> 
+                    number and a lowercase letter. <a href="#">Learn more.</a>
+                </p>
+                <button>Sign up for Github</button>
+                <div id="notice">
+                    <p>
+                        By clicking "sign up for Github", you agree to our <a href="#">Terms of Service</a> and<br/>
+                        <a href="#">Privacy Statement</a>. We'll occasionally send you account related emails.
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="footer">
+        <img src="./footer.webp">
+    </div>   
+</body>
+</html>
