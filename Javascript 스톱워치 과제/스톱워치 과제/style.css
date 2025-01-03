@@ -57,33 +57,68 @@ button {
     background-color: rgb(244, 244, 234);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
+
 .time_check {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60%;
+    padding: 10px;
+    background-color: rgb(214, 227, 214);
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.record_header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    padding: 0 20px;
-    background-color: rgb(214, 227, 214);
-    border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    height: 50px;
+    margin-bottom: 10px;
+    padding: 0 10px;
 }
 
-.time_record {
+.record_header .time_record {
     font-size: 18px;
     color: #333;
     font-weight: bold;
+    text-align: center;
+    flex-grow: 1;
 }
 
-.trashcan {
-    font-size: 20px;
-    color: #333;
-    background: none;
-    border: none;
+.trashcan svg {
+    width: 20px;
+    height: 20px;
     cursor: pointer;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, transform 0.2s ease;
 }
 
 .trashcan:hover {
-    color: #a92f26;
+    color: rgb(207, 29, 29);
 }
+
+.record_header .select_all {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.check_box {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+    margin-top: 10px; 
+    padding: 0 10px;
+}
+
+.record_item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
