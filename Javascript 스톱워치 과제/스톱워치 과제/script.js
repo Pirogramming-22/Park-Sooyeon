@@ -18,7 +18,9 @@ function formatTime(milliseconds) {
     const seconds = totalSeconds % 60;
     const centiseconds = Math.floor((milliseconds % 1000) / 10);
 
-    return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}:${String(centiseconds).padStart(2, '0')}`;
+    return String(minutes).padStart(2, '0') + ':' +
+           String(seconds).padStart(2, '0') + ':' +
+           String(centiseconds).padStart(2, '0');
 }
 
 // 스톱워치 시작 
@@ -51,6 +53,9 @@ function stopStopwatch() {
         recordItem.appendChild(checkbox);
         recordItem.appendChild(recordText);
         checkBox.appendChild(recordItem);
+        
+        //추가기능 2 체크박스 이벤트리스너너
+        checkbox.addEventListener('change', updateSelectAllCheckbox);
     }
 }
 
@@ -80,6 +85,7 @@ function toggleSelectAll() {
     allCheckboxes.forEach((checkbox) => {
         checkbox.checked = isChecked;
     });
+    updateSelectAllCheckbox();
 }
 function updateSelectAllCheckbox() {
     const allCheckboxes = document.querySelectorAll('.record_checkbox:not(.select_all)');
@@ -104,6 +110,13 @@ function parseTime(timeString) {
     return minutes * 60000 + seconds * 1000 + centiseconds * 10;
 }
 
+//추가기능2 
+function addCheckboxListeners() {
+    const allCheckboxes = document.querySelectorAll('.record_checkbox:not(.select_all)');
+    allCheckboxes.forEach((checkbox) => {
+        checkbox.addEventListener('change', updateSelectAllCheckbox);
+    });
+}
 
 startBtn.addEventListener('click', startStopwatch);
 stopBtn.addEventListener('click', stopStopwatch);
