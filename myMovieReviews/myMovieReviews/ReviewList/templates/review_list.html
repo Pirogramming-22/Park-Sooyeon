@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>myMovieReviews</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color:white;
+        }
+
+        header {
+            background-color: #202020;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            background-color: #ff5722;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+
+        header a:hover {
+            background-color: #e64a19;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 100px auto;
+            max-width: 1200px;
+        }
+
+        .card {
+            background: rgba(217, 213, 213, 0.292);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 15px;
+            padding: 15px;
+            width: 250px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .card h2 {
+            font-size: 18px;
+            margin: 40px 0;
+        }
+
+        .card a {
+            text-decoration: none;
+            font-weight: bold;
+            color: black;
+            text-align: left;
+            font-size: 18px;
+            margin: 20px;
+        }
+
+        .card p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #555;
+            text-align: left;
+            
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>myMovieReviews🍿</h1>
+        <a href="{% url 'ReviewList:review_create' %}">Add a new review</a>
+    </header>
+
+    <div class="container">
+        {% for review in reviews %}
+        <div class="card">
+            <h2><a href="{% url 'ReviewList:review_detail' review.id %}">{{ review.title }}</a></h2>
+            <p>개봉년도: {{ review.release_year }}</p>
+            <p>장르: {{ review.genre }}</p>
+            <p class="rating">별점: {{ review.rating }}점</p>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

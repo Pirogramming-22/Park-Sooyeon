@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>리뷰 작성/수정</title>
+    <style>
+         body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color:white;
+        }
+
+        header {
+            background-color: #202020;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: white;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            background-color: #ff5722;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+
+        header a:hover {
+            background-color: #e64a19;
+        }
+
+        .container {
+            background-color: white;
+            margin: 30px auto;
+            padding: 20px 30px;
+            max-width: 600px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        form label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        form input[type="text"],
+        form input[type="number"],
+        form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        form textarea {
+            height: 100px;
+            resize: none;
+        }
+
+        form button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            background-color:#75a4d7;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color:#618ab6;
+        }
+    </style>
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>myMovieReviews🍿</h1>
+        <a href="{% url 'ReviewList:review_create' %}">Add a new review</a>
+    </header>
+
+    <div class="container">
+        <h1>MovieReviews🍿</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="title">제목:</label>
+            <input type="text" id="title" name="title" value="{{ review.title|default:'' }}">
+
+            <label for="release_year">개봉년도:</label>
+            <input type="number" id="release_year" name="release_year" value="{{ review.release_year|default:'' }}">
+
+            <label for="genre">장르:</label>
+            <input type="text" id="genre" name="genre" value="{{ review.genre|default:'' }}">
+
+            <label for="rating">별점:</label>
+            <input type="number" id="rating" step="0.1" name="rating" value="{{ review.rating|default:'' }}">
+
+            <label for="runtime">러닝타임:</label>
+            <input type="number" id="runtime" name="runtime" value="{{ review.runtime|default:'' }}">
+
+            <label for="director">감독:</label>
+            <input type="text" id="director" name="director" value="{{ review.director|default:'' }}">
+
+            <label for="main_actor">주연배우:</label>
+            <input type="text" id="main_actor" name="main_actor" value="{{ review.main_actor|default:'' }}">
+
+            <label for="content">리뷰:</label>
+            <textarea id="content" name="content">{{ review.content|default:'' }}</textarea>
+
+            <button type="submit">Save</button>
+        </form>
+    </div>
+</body>
+</html>
