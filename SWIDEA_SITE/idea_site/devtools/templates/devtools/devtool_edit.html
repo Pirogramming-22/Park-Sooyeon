@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevTool Edit</title>
+    <style>
+        body {
+            background-color: #1d1f21;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        header {
+            background-color: #2b2e33;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #f0db4f;
+        }
+
+        nav {
+            background-color: #2b2e33;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 65px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 13px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #2b2e33;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+        h1 {
+            text-align: center;
+            color: #f0db4f;
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        input[type="text"], textarea {
+            width: 95%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #444;
+            background-color: #444;
+            color: #ffffff;
+            font-size: 16px;
+            border: 1px solid #ddd;
+        }
+        input[type="submit"] {
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f0db4f;
+            color: #1d1f21;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #ffd700;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>My SW Idea Manage</h1>
+    </header>
+    <nav>
+        <a href="{% url 'idea_create' %}">아이디어 등록</a>
+        <a href="{% url 'idea_list' %}">아이디어 관리</a>
+        <a href="{% url 'devtool_create' %}">개발툴 등록</a>
+        <a href="{% url 'devtool_list' %}">개발툴 관리</a>
+    </nav>
+    <div class="container">
+        <h1>DevTool Edit</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="{{ devtool.name }}" required>
+            
+            <label for="kind">Kind:</label>
+            <input type="text" id="kind" name="kind" value="{{ devtool.kind }}" required>
+            
+            <label for="content">Content:</label>
+            <textarea id="content" name="content" required>{{ devtool.content }}</textarea>
+            
+            <input type="submit" value="Save Changes">
+        </form>
+    </div>
+</body>
+</html>

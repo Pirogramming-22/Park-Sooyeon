@@ -1,0 +1,246 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My SW Idea Manage</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1d1f21;
+            color: #ffffff;
+        }
+
+        header {
+            background-color: #2b2e33;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #f0db4f;
+        }
+
+        nav {
+            background-color: #2b2e33;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 65px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 13px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color:rgb(96, 96, 97, 0.5);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(48, 48, 48, 0.5);
+
+        }
+
+        .title {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #f0db4f;
+        }
+
+        .sort-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .sort-container select {
+            background-color: #444;
+            color: #ffffff;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            margin-right: 20px;
+        }
+
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .card {
+            background-color: #3e4249;
+            width: 250px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        .card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .card h3 {
+            font-size: 20px;
+            margin: 15px 0;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .card p {
+            margin: 10px 0;
+            font-size: 14px;
+            color: #bdbdbd;
+        }
+
+        .card .interest {
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .card .interest span {
+            color: #f0db4f;
+            font-weight: bold;
+        }
+
+        .card .actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .card .actions button {
+            background-color: #444;
+            color: #ffffff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .card .actions button:hover {
+            background-color: #555;
+        }
+
+        .card .star {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: #f0db4f;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .pagination a {
+            margin: 0 5px;
+            padding: 10px 15px;
+            background-color: #444;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .pagination a.active {
+            background-color: #f0db4f;
+            color: #1d1f21;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>My SW Idea Manage</h1>
+    </header>
+
+    <nav>
+        <a href="{% url 'idea_create' %}">아이디어 등록</a>
+        <a href="{% url 'idea_list' %}">아이디어 관리</a>
+        <a href="{% url 'devtool_create' %}">개발툴 등록</a>
+        <a href="{% url 'devtool_list' %}">개발툴 관리</a>
+    </nav>
+
+    <div class="container">
+        <h2 class="title">Idea List</h2>
+        
+        <div class="cards">
+            {% for idea in ideas %}
+            <div class="card">
+                {% if idea.image %}
+                    <img src="{{ idea.image.url }}" alt="아이디어 이미지">
+                {% else %}
+                    <img src="/static/default_image.jpg" alt="기본 이미지">
+                {% endif %}
+                <h3><a href="{% url 'idea_detail' idea.id %}">{{ idea.title }}</a></h3>
+                <p>예상 개발 툴: {{ idea.devtool.name }}</p>
+                <p class="interest">아이디어 관심도: <span id="interest-{{ idea.id }}">{{ idea.interest }}</span></p>
+                <div class="actions">
+                    <button onclick="updateInterest({{ idea.id }}, 'increase')">+</button>
+                    <button onclick="updateInterest({{ idea.id }}, 'decrease')">-</button>
+                </div>
+                <button class="star" onclick="toggleStar({{ idea.id }})">
+                    {% if idea.is_starred %}★{% else %}☆{% endif %}
+                </button>
+            </div>
+            {% endfor %}
+        </div>
+                <div class="pagination">
+            {% for page in pages %}
+            <a href="?page={{ page }}" class="{% if page == current_page %}active{% endif %}">{{ page }}</a>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="sort-container">
+        <select onchange="handleSortChange()">
+            <option value="latest" {% if sort == 'latest' %}selected{% endif %}>최신순</option>
+            <option value="starred" {% if sort == 'starred' %}selected{% endif %}>찜하기순</option>
+            <option value="name" {% if sort == 'name' %}selected{% endif %}>이름순</option>
+            <option value="interest" {% if sort == 'interest' %}selected{% endif %}>관심도순</option>
+        </select>
+    </div>
+</body>
+<script>
+    const csrftoken = '{{ csrf_token }}';
+    function handleSortChange() {
+        const sort = document.querySelector('.sort-container select').value;
+        window.location.href = `?sort=${sort}`;
+    }
+    function updateInterest(ideaId, action) {
+        fetch(`/ideas/${ideaId}/update_interest/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ action })
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.querySelector(`#interest-${ideaId}`).textContent = data.interest;
+        });
+    }
+</script>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Idea Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1d1f21;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #2b2e33;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #f0db4f;
+        }
+
+        nav {
+            background-color: #2b2e33;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 65px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* 폼 컨테이너 */
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: #2b2e33;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .container h2 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #f0db4f;
+        }
+
+        .container p {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #bdbdbd;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        input[type="text"], input[type="number"], textarea, select, input[type="file"] {
+            width: 95%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            background-color: #444;
+            color: #ffffff;
+        }
+
+        textarea {
+            height: 100px;
+            resize: none;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            background-color: #f0db4f;
+            color: #1d1f21;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #ffd700;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>My SW Idea Manage</h1>
+    </header>
+
+    <nav>
+        <a href="{% url 'idea_create' %}">아이디어 등록</a>
+        <a href="{% url 'idea_list' %}">아이디어 관리</a>
+        <a href="{% url 'devtool_create' %}">개발툴 등록</a>
+        <a href="{% url 'devtool_list' %}">개발툴 관리</a>
+    </nav>
+
+    <div class="container">
+        <h2>Idea Register</h2>
+        <p>아이디어를 등록하려면 아래 필드를 작성해 주세요.</p>
+        <form method="POST" action="{% url 'idea_create' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="title">아이디어명:</label>
+                <input type="text" id="title" name="title" placeholder="아이디어명을 입력하세요" required>
+            </div>
+            <div class="form-group">
+                <label for="image">Image:</label>
+                <input type="file" id="image" name="image" accept="image/*">
+            </div>
+            <div class="form-group">
+                <label for="content">아이디어 설명:</label>
+                <textarea id="content" name="content" placeholder="아이디어 설명을 입력하세요" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="interest">아이디어 관심도:</label>
+                <input type="number" id="interest" name="interest" min="0" value="0" required>
+            </div>
+            <div class="form-group">
+                <label for="devtool">예상 개발 툴:</label>
+                <select id="devtool" name="devtool" required>
+                    {% for devtool in devtools %}
+                    <option value="{{ devtool.id }}">{{ devtool.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <input type="submit" value="SUBMIT">
+        </form>
+    </div>
+</body>
+</html>

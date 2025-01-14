@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Idea Detail</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1d1f21;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #2b2e33;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #f0db4f;
+        }
+
+        nav {
+            background-color: #2b2e33;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 65px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 13px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: #2b2e33;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+        }
+        .image-container {
+            flex: 1;
+            padding-right: 20px;
+        }
+        .image-container img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .details-container {
+            flex: 2;
+        }
+        .details-container h1 {
+            font-size: 24px;
+            color: #f0db4f;
+        }
+        .details-container p {
+            margin: 10px 0;
+        }
+        .details-container a {
+            color: #f0db4f;
+            text-decoration: none;
+        }
+        .buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        .buttons a {
+            padding: 10px 20px;
+            background-color: #f0db4f;
+            color: rgb(0, 0, 0);
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .buttons a:hover {
+            background-color: #ffd700;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>My SW Idea Manage</h1>
+    </header>
+
+    <nav>
+        <a href="{% url 'idea_create' %}">아이디어 등록</a>
+        <a href="{% url 'idea_list' %}">아이디어 관리</a>
+        <a href="{% url 'devtool_create' %}">개발툴 등록</a>
+        <a href="{% url 'devtool_list' %}">개발툴 관리</a>
+    </nav>
+
+    <div class="container">
+        <div class="image-container">
+            <img src="{{ idea.image.url }}" alt="아이디어 이미지">
+        </div>
+        <div class="details-container">
+            <h1>{{ idea.title }}</h1>
+            <p>아이디어 관심도: {{ idea.interest }}</p>
+            <p>예상 개발 툴: <a href="{% url 'devtool_detail' idea.devtool.id %}">{{ idea.devtool.name }}</a></p>
+            <p>아이디어 설명: {{ idea.content }}</p>
+            <div class="buttons">
+                <a href="{% url 'idea_edit' idea.id %}">수정</a>
+                <a href="{% url 'idea_list' %}">목록</a>
+                <a href="{% url 'idea_delete' idea.id %}">삭제</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
