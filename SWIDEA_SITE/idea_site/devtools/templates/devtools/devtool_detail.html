@@ -66,6 +66,9 @@
         .related-ideas li {
             margin-bottom: 10px;
         }
+        .h2 {
+            font-size: 15px;
+        }
         .buttons {
             display: flex;
             justify-content: space-between;
@@ -97,13 +100,13 @@
     </nav>
     <div class="container">
         <h1>{{ devtool.name }}</h1>
-        <p><strong>Kind:</strong> {{ devtool.kind }}</p>
-        <p><strong>Description:</strong> {{ devtool.content }}</p>
+        <p><strong>종류:</strong> {{ devtool.kind }}</p>
+        <p><strong>설명:</strong> {{ devtool.content }}</p>
 
         <div class="related-ideas">
             <h2>Related Ideas</h2>
             <ul>
-                {% for idea in devtool.idea_set.all %}
+                {% for idea in related_ideas %}
                 <li>
                     <a href="{% url 'idea_detail' idea.id %}">{{ idea.title }}</a>
                 </li>

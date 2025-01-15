@@ -49,6 +49,13 @@
             box-shadow: 0 4px 10px rgba(48, 48, 48, 0.5);
 
         }
+        .title-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 0 20px;
+        }
 
         .title {
             text-align: center;
@@ -61,6 +68,9 @@
             display: flex;
             justify-content: flex-end;
             margin-bottom: 20px;
+            position: absolute;
+            top: 180px;
+            right: 20px;
         }
 
         .sort-container select {
@@ -87,6 +97,7 @@
             overflow: hidden;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
             text-align: center;
+            position: relative; 
         }
 
         .card img {
@@ -139,17 +150,6 @@
             background-color: #555;
         }
 
-        .card .star {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 24px;
-            color: #f0db4f;
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-
         .pagination {
             display: flex;
             justify-content: center;
@@ -168,6 +168,25 @@
         .pagination a.active {
             background-color: #f0db4f;
             color: #1d1f21;
+        }
+        .card .star {
+            position: absolute;
+            top: 10px;
+            right: 10px; 
+            font-size: 24px;
+            color: #f0db4f; 
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .card .star:hover {
+            transform: scale(1.2); 
+        }
+        
+        .card .star.active {
+            color: #ffcc00;
         }
     </style>
 </head>
@@ -201,7 +220,7 @@
                     <button onclick="updateInterest({{ idea.id }}, 'increase')">+</button>
                     <button onclick="updateInterest({{ idea.id }}, 'decrease')">-</button>
                 </div>
-                <button class="star" onclick="toggleStar({{ idea.id }})">
+                <button class="star {% if idea.is_starred %}active{% endif %}" onclick="toggleStar({{ idea.id }}, this)">
                     {% if idea.is_starred %}★{% else %}☆{% endif %}
                 </button>
             </div>
@@ -224,23 +243,63 @@
 </body>
 <script>
     const csrftoken = '{{ csrf_token }}';
+
     function handleSortChange() {
         const sort = document.querySelector('.sort-container select').value;
         window.location.href = `?sort=${sort}`;
     }
+
     function updateInterest(ideaId, action) {
+        console.log(`Updating interest for ideaId: ${ideaId}, action: ${action}`); // 디버깅 로그
+    
         fetch(`/ideas/${ideaId}/update_interest/`, {
             method: 'POST',
             headers: {
                 'X-CSRFToken': '{{ csrf_token }}',
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ action })
+            body: JSON.stringify({ action }) // 'increase' 또는 'decrease'
+        })
+        .then(response => {
+            console.log('Response status:', response.status); // 응답 상태 코드
+            if (!response.ok) {
+                throw new Error('Failed to update interest');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Response data:', data); 
+            const interestSpan = document.querySelector(`#interest-${ideaId}`);
+            if (interestSpan) {
+                interestSpan.textContent = data.new_interest; 
+            } else {
+                console.error(`Element with ID #interest-${ideaId} not found.`);
+            }
+        })
+        .catch(error => {
+            console.error('Error updating interest:', error);
+        });
+    }
+
+    function toggleStar(ideaId, element) {
+        fetch(`/ideas/${ideaId}/toggle_star/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrftoken,
+                'Content-Type': 'application/json',
+            },
         })
         .then(response => response.json())
         .then(data => {
-            document.querySelector(`#interest-${ideaId}`).textContent = data.interest;
-        });
+            if (data.is_starred) {
+                element.classList.add('active'); // 별 활성
+                element.textContent = '★';
+            } else {
+                element.classList.remove('active'); // 별 비활성
+                element.textContent = '☆';
+            }
+        })
+        .catch(error => console.error('Error:', error));
     }
 </script>
 </html>

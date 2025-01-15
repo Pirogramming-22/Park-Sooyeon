@@ -7,5 +7,6 @@ urlpatterns = [
     path('create/', views.idea_create, name='idea_create'),
     path('<int:id>/edit/', views.idea_edit, name='idea_edit'),
     path('<int:id>/delete/', views.idea_delete, name='idea_delete'),
-    path('<int:id>/update_interest/', views.update_interest, name='update_interest'),
+    path('ideas/<int:idea_id>/update_interest/', views.update_interest, name='update_interest'),
+    path('<int:id>/toggle_star/', views.toggle_star, name='toggle_star'),
 ]

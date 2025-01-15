@@ -47,6 +47,7 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
             display: flex;
             align-items: center;
+            position: relative; /* 찜하기 아이콘 배치를 위해 */
         }
         .image-container {
             flex: 1;
@@ -87,6 +88,23 @@
         .buttons a:hover {
             background-color: #ffd700;
         }
+        .star {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 36px;
+            color: #f0db4f;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        .star:hover {
+            transform: scale(1.2);
+        }
+        .star.active {
+            color: #ffcc00;
+        }
     </style>
 </head>
 <body>
@@ -102,6 +120,9 @@
     </nav>
 
     <div class="container">
+        <button class="star {% if idea.is_starred %}active{% endif %}" onclick="toggleStar({{ idea.id }}, this)">
+            {% if idea.is_starred %}★{% else %}☆{% endif %}
+        </button>
         <div class="image-container">
             <img src="{{ idea.image.url }}" alt="아이디어 이미지">
         </div>
@@ -117,5 +138,28 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function toggleStar(ideaId, element) {
+            fetch(`/ideas/${ideaId}/toggle_star/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.is_starred) {
+                    element.classList.add('active');
+                    element.textContent = '★';
+                } else {
+                    element.classList.remove('active');
+                    element.textContent = '☆'; 
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
 </body>
 </html>

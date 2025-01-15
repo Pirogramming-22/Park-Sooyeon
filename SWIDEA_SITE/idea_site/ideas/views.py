@@ -3,20 +3,28 @@ from django.shortcuts import get_object_or_404, redirect
 from .models import Idea
 from devtools.models import DevTool
 from django.http import JsonResponse
+import json
 
-#아이디어 리스트 
 def idea_list(request):
-    sort = request.GET.get('sort', 'latest')
-    if sort == 'latest':
-        ideas = Idea.objects.order_by('-created_at')
-    elif sort == 'starred':
-        ideas = Idea.objects.filter(is_starred=True)
-    elif sort == 'name':
-        ideas = Idea.objects.order_by('title')
+    sort = request.GET.get('sort', 'latest')  
+    ideas = Idea.objects.all()
+
+    if sort == 'starred':
+        
+        ideas = ideas.annotate(
+            is_starred_order=ExpressionWrapper(
+                models.F('is_starred'), output_field=BooleanField()
+            )
+        ).order_by('-is_starred_order', '-created_at')
     elif sort == 'interest':
-        ideas = Idea.objects.order_by('-interest')
+        # 관심도 높은 순 정렬
+        ideas = ideas.order_by('-interest', '-created_at')
+    elif sort == 'name':
+        # 제목 순 정렬
+        ideas = ideas.order_by('title')
     else:
-        ideas = Idea.objects.all()
+        # 최신순 정렬
+        ideas = ideas.order_by('-created_at')
     return render(request, 'ideas/idea_list.html', {'ideas': ideas, 'sort': sort})
 
 #아이디어 상세설명
@@ -72,13 +80,33 @@ def idea_delete(request, id):
     idea.delete()
     return redirect('idea_list')
 
-#관심도 조정
-def update_interest(request, id):
-    idea = Idea.objects.get(id=id)
-    action = request.POST.get('action')
-    if action == 'increase':
-        idea.interest += 1
-    elif action == 'decrease' and idea.interest > 0:
-        idea.interest -= 1
-    idea.save()
-    return JsonResponse({'interest': idea.interest})
+def update_interest(request, idea_id):
+    if request.method == 'POST':
+        try:
+            idea = Idea.objects.get(id=idea_id)
+            data = json.loads(request.body) 
+            action = data.get('action')
+
+            print(f"Action: {action}, Idea ID: {idea_id}")  
+
+            if action == 'increase':
+                idea.interest += 1
+            elif action == 'decrease':
+                idea.interest = max(0, idea.interest - 1)  # 관심도는 0 이상으로 유지
+
+            idea.save() 
+            print(f"New interest: {idea.interest}")
+            return JsonResponse({'new_interest': idea.interest})
+        except Idea.DoesNotExist:
+            print("Idea not found")
+            return JsonResponse({'error': 'Idea not found'}, status=404)
+    print("Invalid request method")
+    return JsonResponse({'error': 'Invalid request method'}, status=400)
+
+#찜하기 버튼
+def toggle_star(request, id):
+    if request.method == 'POST':
+        idea = Idea.objects.get(id=id)
+        idea.is_starred = not idea.is_starred
+        idea.save()
+        return JsonResponse({'is_starred': idea.is_starred})

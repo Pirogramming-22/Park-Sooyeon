@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import DevTool
+from ideas.models import Idea
 
 def devtool_list(request):
     devtools = DevTool.objects.all()
@@ -16,7 +17,11 @@ def devtool_create(request):
 
 def devtool_detail(request, id):
     devtool = get_object_or_404(DevTool, id=id)
-    return render(request, 'devtools/devtool_detail.html', {'devtool': devtool})
+    related_ideas = Idea.objects.filter(devtool=devtool)  # 해당 개발툴과 연관된 아이디어 필터링
+    return render(request, 'devtools/devtool_detail.html', {
+        'devtool': devtool,
+        'related_ideas': related_ideas
+    })
 
 def devtool_edit(request, id):
     devtool = get_object_or_404(DevTool, id=id)
