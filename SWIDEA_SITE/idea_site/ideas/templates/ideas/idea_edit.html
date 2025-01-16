@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Idea Edit</title>
+    <style>
+        body {
+            background-color: #1d1f21;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #2b2e33;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #f0db4f;
+        }
+
+        nav {
+            background-color: #2b2e33;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 65px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 13px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: #2b2e33;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            background-color: #444;
+            color:rgb(255, 255, 255);
+            border: none;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        input[type="submit"] {
+            background-color: #f0db4f;
+            color: #1d1f21;
+            font-weight: bold;
+        }
+        input[type="submit"]:hover {
+            background-color: #ffd700;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>My SW Idea Manage</h1>
+    </header>
+
+    <nav>
+        <a href="{% url 'idea_create' %}">아이디어 등록</a>
+        <a href="{% url 'idea_list' %}">아이디어 관리</a>
+        <a href="{% url 'devtool_create' %}">개발툴 등록</a>
+        <a href="{% url 'devtool_list' %}">개발툴 관리</a>
+    </nav>
+    <div class="container">
+        <h1>아이디어 수정</h1>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="title">아이디어명:</label>
+            <input type="text" id="title" name="title" value="{{ idea.title }}" required>
+            
+            <label for="image">이미지 변경:</label>
+            <input type="file" id="image" name="image">
+
+            <label for="content">아이디어 설명:</label>
+            <textarea id="content" name="content" required>{{ idea.content }}</textarea>
+
+            <label for="interest">관심도:</label>
+            <input type="number" id="interest" name="interest" value="{{ idea.interest }}" required>
+
+            <label for="devtool">예상 개발 툴:</label>
+            <select id="devtool" name="devtool" required>
+                {% for devtool in devtools %}
+                <option value="{{ devtool.id }}" {% if devtool.id == idea.devtool.id %}selected{% endif %}>{{ devtool.name }}</option>
+                {% endfor %}
+            </select>
+
+            <input type="submit" value="수정 완료">
+        </form>
+    </div>
+</body>
+</html>

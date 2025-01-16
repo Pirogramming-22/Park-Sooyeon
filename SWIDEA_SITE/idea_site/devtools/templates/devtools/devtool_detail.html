@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ devtool.name }} - Detail</title>
+    <style>
+        body {
+            background-color: #1d1f21;
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        header {
+            background-color: #2b2e33;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #f0db4f;
+        }
+
+        nav {
+            background-color: #2b2e33;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 65px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 13px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #2b2e33;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+        h1 {
+            color: #f0db4f;
+        }
+        a {
+            color: #f0db4f;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .related-ideas {
+            margin-top: 20px;
+        }
+        .related-ideas ul {
+            list-style: none;
+            padding: 0;
+        }
+        .related-ideas li {
+            margin-bottom: 10px;
+        }
+        .h2 {
+            font-size: 15px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .buttons a {
+            padding: 5px 10px;
+            background-color: #f0db4f;
+            color:rgb(0, 0, 0);
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: 13px;
+        }
+        .buttons a:hover {
+            background-color: #ffd700;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>My SW Idea Manage</h1>
+    </header>
+    <nav>
+        <a href="{% url 'idea_create' %}">아이디어 등록</a>
+        <a href="{% url 'idea_list' %}">아이디어 관리</a>
+        <a href="{% url 'devtool_create' %}">개발툴 등록</a>
+        <a href="{% url 'devtool_list' %}">개발툴 관리</a>
+    </nav>
+    <div class="container">
+        <h1>{{ devtool.name }}</h1>
+        <p><strong>종류:</strong> {{ devtool.kind }}</p>
+        <p><strong>설명:</strong> {{ devtool.content }}</p>
+
+        <div class="related-ideas">
+            <h2>Related Ideas</h2>
+            <ul>
+                {% for idea in related_ideas %}
+                <li>
+                    <a href="{% url 'idea_detail' idea.id %}">{{ idea.title }}</a>
+                </li>
+                {% empty %}
+                <li>No related ideas found.</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="buttons">
+            <a href="{% url 'devtool_edit' devtool.id %}">수정</a>
+            <a href="{% url 'devtool_delete' devtool.id %}">삭제</a>
+            <a href="{% url 'devtool_list' %}">목록</a>
+        </div>
+    </div>
+</body>
+</html>
