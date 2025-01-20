@@ -1,0 +1,121 @@
+{% extends "layout.html"%}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/post_detail.css' %}">
+{% block content %}
+<div class="post-container">
+    <div class="post post-{{ post.id }}">
+        <div class="post-image">
+            <img src="{{ post.image.url }}" alt="Post Image" />
+        </div>
+        <div class="post-content">
+            <div class="post-header">
+                <a href="{% url 'main:post_detail' post.pk %}" class="post-title">{{ post.title }}</a>
+                <button class="btn edit-btn" onclick="location.href='{% url 'main:post_edit' post.id %}'">수정</button>
+                <button class="btn delete-btn" onclick="location.href='{% url 'main:post_delete' post.id %}'">삭제</button>
+            </div>
+            <hr>
+            <div class="post-body">
+                {{ post.content }}
+            </div>
+            <hr>
+            <h6>댓글</h6>
+            <div class="comments">
+                {% for comment in comments %}
+                    <div class="comment comment-{{ comment.id }}">
+                        {{ comment.content }}
+                        <button class="btn btn-sm delete-comment" onclick="deleteComment({{ comment.id }})">삭제</button>
+                    </div>
+                {% endfor %}
+            </div>
+            <hr>
+            <div class="like-section">
+                {% if post.like %}
+                    <span class="like" onclick="onClickLike({{ post.id }},'like')">❤️</span>
+                {% else %}
+                    <span class="dislike" onclick="onClickLike({{ post.id }},'dislike')">🤍</span>
+                {% endif %}
+            </div>
+            <hr>
+            <div class="comment-section">
+                <input class="comment-input" type="text" placeholder="댓글 달기..." />
+                <button class="btn post-comment" onclick="newComment({{ post.id }})">게시</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra %}
+<script>
+    const requestLike = new XMLHttpRequest();
+
+    const onClickLike = (id, type) => {
+        const url = '/like_ajax/';
+        requestLike.open("POST", url, true);
+        requestLike.setRequestHeader('Content-Type', 'application/json');
+        requestLike.send(JSON.stringify({ id: id, type: type }));
+    };
+
+    const likeHandleResponse = () => {
+        if (requestLike.status < 400) {
+            const { id, type } = JSON.parse(requestLike.response);
+            const element = document.querySelector(`.post-${id} .${type === 'like' ? 'like' : 'dislike'}`);
+            element.textContent = element.textContent === '🤍' ? '❤️' : '🤍';
+        }
+    };
+
+    requestLike.onreadystatechange = () => {
+        if (requestLike.readyState === XMLHttpRequest.DONE) {
+            likeHandleResponse();
+        }
+    };
+
+    const requestComment = new XMLHttpRequest();
+
+    const newComment = (id) => {
+        const url = '/new_comment/';
+        requestComment.open("POST", url, true);
+        requestComment.setRequestHeader('Content-Type', 'application/json');
+        const content = document.querySelector(`.post-${id} .comment-input`).value;
+        requestComment.send(JSON.stringify({ id: id, content: content }));
+    };
+
+    const commentHandleResponse = () => {
+        if (requestComment.status < 400) {
+            const { id, content, comment_id } = JSON.parse(requestComment.response);
+            const element = document.querySelector(`.post-${id} .comments`);
+            element.innerHTML += `<div class="comment comment-${comment_id}">${content}
+                <button class="btn delete-comment" onclick="deleteComment(${comment_id})">삭제</button></div>`;
+        }
+    };
+
+    requestComment.onreadystatechange = () => {
+        if (requestComment.readyState === XMLHttpRequest.DONE) {
+            commentHandleResponse();
+        }
+    };
+
+    const requestDelComment = new XMLHttpRequest();
+
+    const deleteComment = (id) => {
+        const url = '/delete_comment/';
+        requestDelComment.open("POST", url, true);
+        requestDelComment.setRequestHeader('Content-Type', 'application/json');
+        requestDelComment.send(JSON.stringify({ id: id }));
+    };
+
+    const commentDelHandleResponse = () => {
+        if (requestDelComment.status < 400) {
+            const { id } = JSON.parse(requestDelComment.response);
+            const element = document.querySelector(`.comment-${id}`);
+            element.remove();
+        }
+    };
+
+    requestDelComment.onreadystatechange = () => {
+        if (requestDelComment.readyState === XMLHttpRequest.DONE) {
+            commentDelHandleResponse();
+        }
+    };
+</script>
+{% endblock %}

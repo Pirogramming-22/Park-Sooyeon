@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="flex-center">
+    <div class="form-container">
+        <form class="form" action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input class="btn submit-btn" type="submit" value="Post">
+        </form>
+    </div>
+</div>
+{% endblock %}
