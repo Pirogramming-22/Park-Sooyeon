@@ -1,0 +1,151 @@
+{% extends "layout.html"%}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/post_list.css' %}">
+{% block content %}
+<div class="d-flex flex-column align-items-center">
+    {% for post in posts %}
+    <div class="post post-{{ post.id }} ">
+        <div class="img-container">
+            <img class="img rounded" src="{{ post.image.url }}" alt="Post Image">
+        </div>
+        <div class="details col-6">
+            <div class="main">
+                <a class="post_detail" href="{% url 'main:post_detail' post.pk %}">
+                    <h6 class="post_title">{{ post.title }}</h6>
+                </a>
+                <button class="edit-btn" onclick="location.href='{% url 'main:post_edit' post.id %}'">수정</button>
+                <button class="delete-btn" onclick="location.href='{% url 'main:post_delete' post.id %}'">삭제</button>
+            </div>
+            <hr>
+            <div class="content">{{ post.content }}</div>
+            <hr>
+            <h6 class="font-weight-light">댓글</h6>
+            <hr>
+            <div class="comments">
+                {% for comment in post.comment_set.all %}
+                <div class="comment comment-{{ comment.id }}">
+                    {{ comment.content }}
+                    <button class="deletet-btn" onclick="deleteComment({{ comment.id }})">삭제</button>
+                </div>
+                {% endfor %}
+            </div>
+            <hr>
+            {% if post.like %}
+            <div class="like-btn" onclick="onClickLike({{ post.id }}, 'like')">
+                ❤️ <span class="like-count">{{ post.like_count }}</span>
+            </div>
+            {% else %}
+            <div class="dislike-btn" onclick="onClickLike({{ post.id }}, 'dislike')">
+                🤍 <span class="like-count">{{ post.like_count }}</span>
+            </div>
+            {% endif %}
+            <hr>
+            <div class="comment-box">
+                <input class="comment-input" type="text" placeholder="댓글 달기 ...">
+                <button class="post-comment-btn" onclick="newComment({{ post.id }})">게시</button>
+            </div>
+        </div>
+    </div>
+    <hr>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block extra %}
+<script>
+    const requestLike = new XMLHttpRequest();
+
+    const onClickLike = (id, type) => {
+        const url ='/like_ajax/';
+        requestLike.open("POST", url, true);
+        requestLike.setRequestHeader(
+            'Content-Type',
+            'application/x-www-form-urlencoded'
+        );
+        requestLike.send(JSON.stringify({id:id, type:type}));
+    };
+
+    const likeHandleResponse = () => {
+        if (requestLike.status < 400) {
+            const { id, type, like_count } = JSON.parse(requestLike.response); // 서버에서 like_count 반환
+            const likeBtn = document.querySelector(`.post-${id} .like-btn`);
+            const dislikeBtn = document.querySelector(`.post-${id} .dislike-btn`);
+            const likeCountElement = document.querySelector(`.post-${id} .like-count`);
+            
+            if (type === 'like') {
+                likeBtn.innerHTML = `❤️ <span class="like-count">${like_count}</span>`;
+            } else {
+                dislikeBtn.innerHTML = `🤍 <span class="like-count">${like_count}</span>`;
+            }
+    
+            likeCountElement.textContent = like_count; // 숫자 갱신
+        }
+    };
+    
+    requestLike.onreadystatechange = () => {
+        if (requestLike.readyState === XMLHttpRequest.DONE) {
+            likeHandleResponse();
+        }
+    } 
+
+
+//새 댓글
+    const requestComment = new XMLHttpRequest();
+
+    const newComment = (id) => {
+        const url ='/new_comment/';
+        requestComment.open("POST", url, true);
+        requestComment.setRequestHeader(
+            'Content-Type',
+            'application/x-www-form-urlencoded'
+        );
+        const content = document.querySelector(`.post-${id} .comment-input`).value;
+        requestComment.send(JSON.stringify({id:id, content:content}));
+    };
+
+    const commentHandleResponse = () => {
+        if(requestComment.status < 400) {
+            const {id, content, comment_id} =JSON.parse(requestComment.response);
+            const element = document.querySelector(`.post-${id} .comments`);
+            element.innerHTML += ` <div class="comment comment-${comment_id}">
+                ${content}
+                <button class="btn btn-outline-secondary btn-sm" onclick="deleteComment(${comment_id})">삭제</button>
+            </div>`;
+        }
+    }
+
+    requestComment.onreadystatechange = () => {
+        if (requestComment.readyState === XMLHttpRequest.DONE) {
+            commentHandleResponse();
+        }
+    }
+
+
+//댓글 삭제
+    const requestDelComment = new XMLHttpRequest();
+
+    const deleteComment = (id) => {
+        const url ='/delete_comment/';
+        requestDelComment.open("POST", url, true);
+        requestDelComment.setRequestHeader(
+            'Content-Type',
+            'application/x-www-form-urlencoded'
+        );
+        requestDelComment.send(JSON.stringify({id:id}));
+    };
+
+    const commentDelHandleResponse = () => {
+        if(requestDelComment.status < 400) {
+            const {id, content} =JSON.parse(requestDelComment.response);
+            const element = document.querySelector(`.comment-${id}`);
+            element.remove()
+        }
+    }
+
+    requestDelComment.onreadystatechange = () => {
+        if (requestDelComment.readyState === XMLHttpRequest.DONE) {
+            commentDelHandleResponse();
+        }
+    } 
+</script>
+{% endblock %}
